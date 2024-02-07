@@ -6,7 +6,6 @@ import Header from './components/Header';
 import Popup from './components/Popup';
 import LoopIcon from '@mui/icons-material/Loop';
 
-import "./loadingIcon.scss"
 
 function App() {
 
