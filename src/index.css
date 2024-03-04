@@ -132,6 +132,14 @@ button {
   margin: 3rem auto;
   grid-template-columns: repeat(4, auto);
 }
+
+.gridScore {
+  gap: 1.25rem;
+  display: grid;
+  justify-content: center;
+  margin: 3rem auto;
+  grid-template-rows: repeat(5, auto);
+}
 .loadingAnimation {
   display: flex;
   justify-content: center;

@@ -5,6 +5,7 @@ import Card from './components/Card';
 import Header from './components/Header';
 import Popup from './components/Popup';
 import LoopIcon from '@mui/icons-material/Loop';
+import Scores from './components/Scores';
 
 
 function App() {
@@ -15,8 +16,8 @@ function App() {
   const [pickOne, setPickOne] = useState(null);
   const [pickTwo, setPickTwo] = useState(null);
   const [disabled, setDisabled] = useState(false);
-  const [popup, setPopup] = useState(false);
-  const [clickNum, setClickNum] = useState(0);
+  const [popup, setPopup] = useState(true); //prepravi u false 
+  const [clickNum, setClickNum] = useState(18000); //prepravi u 0
 
   useEffect(() => {
     const fetchData = async () => {  
@@ -103,7 +104,7 @@ function App() {
     }, [cards, pickOne, pickTwo]);
 
     // If player has found all matches, handle accordingly
-  useEffect(() => {
+    useEffect(() => {
       // Check for any remaining card matches
       const checkWin = cards.filter((card) => !card.matched);
   
@@ -115,7 +116,8 @@ function App() {
 
   return (
     <>
-    <Popup clickNum={clickNum} popup={popup} handleNewGame={handleNewGame}></Popup>
+    <Scores></Scores>
+    {popup && <Popup clickNum={clickNum} handleNewGame={handleNewGame}></Popup>}
     <div className='headerFlex'>
       <Header 
       handleNewGame = {handleNewGame}
