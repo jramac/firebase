@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useState} from 'react';
-const Popup = ({clickNum,handleNewGame}) => {
+const Popup = ({clickNum,handleNewGame,closePopup}) => {
 
     const [name, setName] = useState(undefined);
     const score = clickNum/2;
@@ -9,7 +9,7 @@ const Popup = ({clickNum,handleNewGame}) => {
       };
     
       const handleClickSend = () => {
-
+        closePopup();
         axios.post('http://127.0.0.1:8000/api/score-create/', {name:{nadimak:name}, score_value: score})
             .then(response => {
                 console.log('Score added successfully:', response.data);

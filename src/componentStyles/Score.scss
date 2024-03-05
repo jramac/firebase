@@ -1,0 +1,10 @@
+.score{
+  width: 300px;
+}
+.row{
+    display: flex;
+    flex-direction: row;
+    outline: green solid 2px;
+    border-radius: 8px;
+    gap: 50px;
+  }

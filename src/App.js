@@ -6,18 +6,18 @@ import Header from './components/Header';
 import Popup from './components/Popup';
 import LoopIcon from '@mui/icons-material/Loop';
 import Scores from './components/Scores';
-
+import SportsScoreIcon from '@mui/icons-material/SportsScore';
 
 function App() {
 
   const [cards, setCards] = useState([]);
   const [loading, setLoading] = useState(true);
-
+  const [showScores,setShowScores] = useState(false);
   const [pickOne, setPickOne] = useState(null);
   const [pickTwo, setPickTwo] = useState(null);
   const [disabled, setDisabled] = useState(false);
-  const [popup, setPopup] = useState(true); //prepravi u false 
-  const [clickNum, setClickNum] = useState(18000); //prepravi u 0
+  const [popup, setPopup] = useState(false); //prepravi u false 
+  const [clickNum, setClickNum] = useState(0); //prepravi u 0
 
   useEffect(() => {
     const fetchData = async () => {  
@@ -31,6 +31,14 @@ function App() {
 
     fetchData();
   }, []);
+
+  const handleSetShowScores = () => {
+    setShowScores(!showScores);
+  }
+
+  const handlePopup = () => {
+    setPopup(false);
+  }
 
   const handleSetClickNum = () => {
     setClickNum(0);
@@ -116,8 +124,11 @@ function App() {
 
   return (
     <>
-    <Scores></Scores>
-    {popup && <Popup clickNum={clickNum} handleNewGame={handleNewGame}></Popup>}
+    <div className='showScores'>
+      <SportsScoreIcon className='MuiSvgIcon-fontSizeLarge' onClick={handleSetShowScores}/></div>
+    
+    {showScores && <Scores handleNewGame={handleNewGame}></Scores>}
+    {popup && <Popup clickNum={clickNum} handleNewGame={handleNewGame} closePopup={handlePopup}></Popup>}
     <div className='headerFlex'>
       <Header 
       handleNewGame = {handleNewGame}
