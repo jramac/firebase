@@ -6,7 +6,7 @@ const Popup = ({clickNum,handleNewGame,closePopup}) => {
     const score = clickNum/2;
     const handleInputChange = (event) => {
         setName(event.target.value);
-      };
+    };
     
       const handleClickSend = () => {
         closePopup();
@@ -17,12 +17,13 @@ const Popup = ({clickNum,handleNewGame,closePopup}) => {
             .catch(error => {
                 console.error('Error adding score:', error);
             });
-
+        
         // Log the state variables as JSON
         console.log('State Variables:', JSON.stringify({ name, clickNum }));
         };
   
-            return <div className="popup-overlay">
+            return (<>
+            <div className="popup-overlay">
             <div className="popup-container">
             <div className="popup-content">
                 <div className="naslov">
@@ -37,7 +38,8 @@ const Popup = ({clickNum,handleNewGame,closePopup}) => {
                 </div>
             </div>
             </div>
-            </div>;
+            </div>
+            </>);
 };
 
 export default Popup;

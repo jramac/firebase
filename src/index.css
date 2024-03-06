@@ -51,15 +51,14 @@ body {
 /* ========= Menu ======================== */
 
 .showScores{
-  position: absolute;
-  top: 10px;
-  right: 10px;
+  position: relative;
+  flex: 1;
   cursor: pointer;
-  z-index: 9999;
+  z-index: 999;
   .MuiSvgIcon-fontSizeLarge{
-    font-size: 5rem;
+    font-size: 3rem;
     color: #b62f2f;
-    animation: 1s infinite ease-out;
+    animation: 2s infinite ease-out;
   }
 }
 
@@ -85,6 +84,7 @@ header {
 h3 {
   margin: auto;
   color: var(--text);
+  flex: 1;
 }
 h4 {
   margin: auto;
@@ -95,7 +95,10 @@ button {
   outline: none;
   padding: 0.5rem;
   border-radius: 3px;
-  margin: auto;
+  margin: auto 10px;
+  flex: 1;
+  background-color: var(--text);
+  cursor: pointer;
 }
 
 /* ========= Popup Box ==================== */
@@ -109,7 +112,7 @@ button {
   border-radius: var(--radius);
   padding: 1rem;
 
-  z-index: 999;
+  z-index: 998;
 }
 
 .popup-content {
@@ -122,6 +125,14 @@ button {
   text-align: center;
 }
 
+.buttonNewGame{
+  padding: 5px;
+  text-align: center;
+  button{
+    cursor: pointer;
+  }
+}
+
 .popup-overlay {
   position: fixed;
   top: 0;
@@ -129,7 +140,7 @@ button {
   width: 100vw;
   height: 100vh;
   background: rgba(0, 0, 0, 0.5);
-  z-index: 998;
+  z-index: 997;
 }
 
 /* ========= Grid ========================= */
@@ -238,6 +249,7 @@ button {
     bottom: 0;
     margin: auto;
     position: fixed;
+    z-index: 997;
     border-radius: 0;
   }
 
@@ -265,11 +277,4 @@ button {
     
     margin: 3rem auto;
   }
-}
-
-/* ========= Score ======================== */
-
-.score.row{
-  display: flex;
-  flex-direction: row;
 }

@@ -1,10 +1,15 @@
 .score{
   width: 300px;
+  cursor: default;
+}
+
+.score:hover{
+  background-color: rgba($color: #285983, $alpha: .5);
 }
 .row{
+    padding: 5px;
     display: flex;
     flex-direction: row;
-    outline: green solid 2px;
+    outline: #304f5f solid 2px;
     border-radius: 8px;
-    gap: 50px;
   }

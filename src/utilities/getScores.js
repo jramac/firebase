@@ -6,7 +6,6 @@ const getScores = async() => {
         assets.push(...data)
     }    
     await fetchData();
-    console.log(assets)
     return (assets)
 };
 

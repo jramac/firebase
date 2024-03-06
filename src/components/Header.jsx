@@ -1,13 +1,17 @@
-function Header({handleNewGame,clickNum}){
+import Scores from "./Scores";
+import SportsScoreIcon from '@mui/icons-material/SportsScore';
+function Header({handleNewGame,clickNum,handleSetShowScores,showScores}){
 
-
-    return (
+    return (<>
+        {showScores && <Scores handleNewGame={handleNewGame}></Scores>}
         <header className="header">
-            <h3>Memory game</h3>
+            <div className='showScores'>
+                <SportsScoreIcon className='MuiSvgIcon-fontSizeLarge' onClick={handleSetShowScores}/>
+            </div>
             <h3>Click num: {clickNum}</h3>
             <button onClick={handleNewGame}>New Game</button>
         </header>
-    );
+        </>);
 };
 
 export default Header;

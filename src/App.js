@@ -6,18 +6,22 @@ import Header from './components/Header';
 import Popup from './components/Popup';
 import LoopIcon from '@mui/icons-material/Loop';
 import Scores from './components/Scores';
-import SportsScoreIcon from '@mui/icons-material/SportsScore';
+
 
 function App() {
 
   const [cards, setCards] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [showScores,setShowScores] = useState(false);
   const [pickOne, setPickOne] = useState(null);
   const [pickTwo, setPickTwo] = useState(null);
   const [disabled, setDisabled] = useState(false);
   const [popup, setPopup] = useState(false); //prepravi u false 
   const [clickNum, setClickNum] = useState(0); //prepravi u 0
+  const [showScores,setShowScores] = useState(false);
+
+  const handleSetShowScores = () => {
+    setShowScores(!showScores);
+  }
 
   useEffect(() => {
     const fetchData = async () => {  
@@ -32,11 +36,8 @@ function App() {
     fetchData();
   }, []);
 
-  const handleSetShowScores = () => {
-    setShowScores(!showScores);
-  }
-
   const handlePopup = () => {
+    setShowScores(true);
     setPopup(false);
   }
 
@@ -61,6 +62,7 @@ function App() {
   const handleNewGame = () => {
     handleTurn();
     setLoading(true)
+    setShowScores(false)
     ////
     const fetchData = async () => {  
       try {
@@ -124,22 +126,12 @@ function App() {
 
   return (
     <>
-    <div className='showScores'>
-      <SportsScoreIcon className='MuiSvgIcon-fontSizeLarge' onClick={handleSetShowScores}/></div>
-    
-    {showScores && <Scores handleNewGame={handleNewGame}></Scores>}
     {popup && <Popup clickNum={clickNum} handleNewGame={handleNewGame} closePopup={handlePopup}></Popup>}
     <div className='headerFlex'>
-      <Header 
-      handleNewGame = {handleNewGame}
-      clickNum={clickNum}
-    />
+      <Header handleNewGame = {handleNewGame} clickNum={clickNum} handleSetShowScores={handleSetShowScores} showScores={showScores}/>
     </div>
-    {loading && <div className="loadingAnimation">
-      <LoopIcon className='MuiSvgIcon-fontSizeLarge'/>
-      </div>}
+    {loading && <div className="loadingAnimation"><LoopIcon className='MuiSvgIcon-fontSizeLarge'/></div>}
     <div className='box'>{!loading && <div className="grid">
-      
       {cards.map((card) => {
         const { image, id, matched } = card;
         return(
@@ -151,8 +143,9 @@ function App() {
           />
         );
       })}
-    </div>}</div>
-
+      </div>
+      }
+    </div>
     </>
   );
 }

@@ -20,7 +20,6 @@ const Scores = ({handleNewGame}) => {
     },[])
   
     return(
-        <div className="grid">
             <div className="popup-overlay">
                 <div className="popup-container">
                     <div className="popup-content">
@@ -35,13 +34,12 @@ const Scores = ({handleNewGame}) => {
                                 </div>
                             }
                         </div>
-                        <div className="naslov">
+                        <div className="buttonNewGame">
                             <button onClick={handleNewGame}>New Game</button>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
     )
         
          
