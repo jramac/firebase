@@ -1,7 +1,7 @@
 import React, { useState,useEffect} from 'react';
 import getScores from '../utilities/getScores';
 import Score from './Score';
-const Scores = ({handleNewGame}) => {
+const Scores = ({handleNewGame,handleSetShowScores}) => {
 
     const[scores,setScores] = useState(null);
     const[loading,setLoading] = useState(true);
@@ -20,7 +20,7 @@ const Scores = ({handleNewGame}) => {
     },[])
   
     return(
-            <div className="popup-overlay">
+            <div className="popup-overlay" onClick={handleSetShowScores}>
                 <div className="popup-container">
                     <div className="popup-content">
                         <div className="naslov">
@@ -28,8 +28,8 @@ const Scores = ({handleNewGame}) => {
                         </div>
                         <div className='box'>
                             {!loading && <div className="gridScore">
-                                {scores.map((sincleScore) => {
-                                    return(<Score key = {sincleScore.id} name = {sincleScore.name.nadimak} score = {sincleScore.score_value}/>);
+                                {scores.map((singleScore,index) => {
+                                    return(<Score key = {singleScore.id} scoreIndex={index} name = {singleScore.name.nadimak} score = {singleScore.score_value}/>);
                                 })}
                                 </div>
                             }

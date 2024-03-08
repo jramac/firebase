@@ -1,16 +1,15 @@
 import axios from 'axios';
 import React, { useState} from 'react';
-const Popup = ({clickNum,handleNewGame,closePopup}) => {
+const Popup = ({finalScore,handleNewGame,closePopup}) => {
 
     const [name, setName] = useState(undefined);
-    const score = clickNum/2;
     const handleInputChange = (event) => {
         setName(event.target.value);
     };
     
       const handleClickSend = () => {
         closePopup();
-        axios.post('http://127.0.0.1:8000/api/score-create/', {name:{nadimak:name}, score_value: score})
+        axios.post('http://127.0.0.1:8000/api/score-create/', {name:{nadimak:name}, score_value: finalScore})
             .then(response => {
                 console.log('Score added successfully:', response.data);
             })  
@@ -19,7 +18,7 @@ const Popup = ({clickNum,handleNewGame,closePopup}) => {
             });
         
         // Log the state variables as JSON
-        console.log('State Variables:', JSON.stringify({ name, clickNum }));
+        console.log('State Variables:', JSON.stringify({ name, finalScore }));
         };
   
             return (<>
@@ -27,9 +26,9 @@ const Popup = ({clickNum,handleNewGame,closePopup}) => {
             <div className="popup-container">
             <div className="popup-content">
                 <div className="naslov">
-                    <h2>Bravo majmune</h2>
+                    <h2>Bravooo!</h2>
                 </div>
-                <h3>trebalo ti je samo: {score} pokusaja</h3>
+                <h3>Score : {finalScore} </h3>
                 <h3>Upisi ime</h3>
                 <input type="text" value={name} onChange={handleInputChange} />
                 <button onClick={handleClickSend}>Predaj</button>

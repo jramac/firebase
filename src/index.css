@@ -57,7 +57,7 @@ body {
   z-index: 999;
   .MuiSvgIcon-fontSizeLarge{
     font-size: 3rem;
-    color: #b62f2f;
+    color: var(--text);
     animation: 2s infinite ease-out;
   }
 }

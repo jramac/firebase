@@ -5,7 +5,7 @@ import Card from './components/Card';
 import Header from './components/Header';
 import Popup from './components/Popup';
 import LoopIcon from '@mui/icons-material/Loop';
-import Scores from './components/Scores';
+import calculateStreak from './utilities/calculateStreak';
 
 
 function App() {
@@ -16,11 +16,20 @@ function App() {
   const [pickTwo, setPickTwo] = useState(null);
   const [disabled, setDisabled] = useState(false);
   const [popup, setPopup] = useState(false); //prepravi u false 
-  const [clickNum, setClickNum] = useState(0); //prepravi u 0
   const [showScores,setShowScores] = useState(false);
+  const [finalScore,setFinalScore] = useState(0);
+  const [streak,setStreak] = useState(0);
 
   const handleSetShowScores = () => {
     setShowScores(!showScores);
+  }
+
+  const handleSetStreak = (streakToSet) => {
+    setStreak(streakToSet);
+  }
+
+  const handleSetFinalScore = (streakToAdd) => {
+    setFinalScore(finalScore + streakToAdd)
   }
 
   useEffect(() => {
@@ -41,14 +50,9 @@ function App() {
     setPopup(false);
   }
 
-  const handleSetClickNum = () => {
-    setClickNum(0);
-  };
-
   const handleClick = (card) => {
     
     if(!disabled){
-      setClickNum((currentNum) => currentNum + 1);
       pickOne ? setPickTwo(card) : setPickOne(card);
     }
   }
@@ -63,6 +67,8 @@ function App() {
     handleTurn();
     setLoading(true)
     setShowScores(false)
+    setStreak(0)
+    setFinalScore(0)
     ////
     const fetchData = async () => {  
       try {
@@ -76,7 +82,6 @@ function App() {
     fetchData();
     ////
     setPopup(false);
-    handleSetClickNum();
   };
 
   useEffect(() => {
@@ -86,9 +91,10 @@ function App() {
     if (pickOne && pickTwo) {
       // Check if the cards the same
       if (pickOne.image === pickTwo.image) {
+        handleSetStreak(calculateStreak(streak))
         setCards((prevCards) => {
           return prevCards.map((card) => {
-            if (card.image === pickOne.image) {
+            if (card.image === pickOne.image) {     
               // Update card property to reflect match
               return { ...card, matched: true };
             } else {
@@ -99,6 +105,7 @@ function App() {
         });
         handleTurn();
       } else {
+        handleSetStreak(0)
         // Prevent new selections until after delay
         setDisabled(true);
         // Add delay between selections
@@ -106,9 +113,11 @@ function App() {
           handleTurn();
         }, 1000);
       }
+      handleSetFinalScore(streak);
     }
 
       return () => {
+
         clearTimeout(pickTimer);
       };
     }, [cards, pickOne, pickTwo]);
@@ -120,15 +129,16 @@ function App() {
   
       // All matches made, handle win/badge counters
       if (cards.length && checkWin.length < 1) {
+        handleSetFinalScore(streak);
         setPopup(true);
       }
     }, [cards]);
 
   return (
     <>
-    {popup && <Popup clickNum={clickNum} handleNewGame={handleNewGame} closePopup={handlePopup}></Popup>}
+    {popup && <Popup finalScore={finalScore} handleNewGame={handleNewGame} closePopup={handlePopup}></Popup>}
     <div className='headerFlex'>
-      <Header handleNewGame = {handleNewGame} clickNum={clickNum} handleSetShowScores={handleSetShowScores} showScores={showScores}/>
+      <Header handleNewGame = {handleNewGame} finalScore={finalScore} handleSetShowScores={handleSetShowScores} showScores={showScores}/>
     </div>
     {loading && <div className="loadingAnimation"><LoopIcon className='MuiSvgIcon-fontSizeLarge'/></div>}
     <div className='box'>{!loading && <div className="grid">
